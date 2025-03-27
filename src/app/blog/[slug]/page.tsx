@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-
+import './styles.css';
 // Define the WordPress post interface
-interface WordPressPost {
+type WordPressPost = {
   id: number;
   slug: string;
   title: {
@@ -21,13 +21,24 @@ interface WordPressPost {
       source_url: string;
     }];
   };
-}
+};
+
+// Types for the Next.js page props
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+// Constants
+const API_BASE_URL = "https://public-api.wordpress.com/wp/v2/sites/anskufail.wordpress.com";
+const CACHE_REVALIDATION = 3600; // 1 hour
 
 // Function to fetch all posts (for generating static paths)
-async function getAllPosts() {
+async function getAllPosts(): Promise<WordPressPost[]> {
   const res = await fetch(
-    "https://public-api.wordpress.com/wp/v2/sites/anskufail.wordpress.com/posts",
-    { next: { revalidate: 3600 } }
+    `${API_BASE_URL}/posts`,
+    { next: { revalidate: CACHE_REVALIDATION } }
   );
   
   if (!res.ok) {
@@ -38,10 +49,10 @@ async function getAllPosts() {
 }
 
 // Function to fetch a post by slug
-async function getPostBySlug(slug: string) {
+async function getPostBySlug(slug: string): Promise<WordPressPost | null> {
   const res = await fetch(
-    `https://public-api.wordpress.com/wp/v2/sites/anskufail.wordpress.com/posts?slug=${slug}&_embed`,
-    { next: { revalidate: 3600 } }
+    `${API_BASE_URL}/posts?slug=${slug}&_embed`,
+    { next: { revalidate: CACHE_REVALIDATION } }
   );
   
   if (!res.ok) {
@@ -53,7 +64,7 @@ async function getPostBySlug(slug: string) {
 }
 
 // Format the published date
-function formatDate(dateString: string) {
+function formatDate(dateString: string): string {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -62,20 +73,38 @@ function formatDate(dateString: string) {
   }).format(date);
 }
 
+// Simple HTML entity decoder built into the component
+function decodeHtml(html: string): string {
+  return html
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&ndash;/g, '–')
+    .replace(/&mdash;/g, '—')
+    .replace(/&nbsp;/g, ' ');
+}
+
 export async function generateStaticParams() {
-  const posts: WordPressPost[] = await getAllPosts();
+  const posts = await getAllPosts();
   
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: PageProps) {
+  // Await the params object before accessing its properties
+  const paramsData = await params;
+  const post = await getPostBySlug(paramsData.slug);
   
   if (!post) {
     notFound();
   }
+  
+  // Decode the HTML entities in the title
+  const title = decodeHtml(post.title.rendered);
   
   return (
     <div className="py-12 sm:py-16">
@@ -96,28 +125,23 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           <article>
             <header className="mb-8">
               <time className="text-sm text-gray-500 block mb-3">{formatDate(post.date)}</time>
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6">{post.title.rendered}</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold mb-6">{title}</h1>
               
-              {post._embedded && post._embedded["wp:featuredmedia"] && (
+              {post._embedded?.["wp:featuredmedia"]?.[0]?.source_url && (
                 <div className="mb-8 rounded-lg overflow-hidden">
                   <Image
                     src={post._embedded["wp:featuredmedia"][0].source_url}
-                    alt={post.title.rendered}
+                    alt={title}
                     width={1000}
                     height={600}
                     className="w-full h-auto"
                   />
                 </div>
               )}
-              
-              <div 
-                className="text-lg text-gray-600 italic mb-6 border-b pb-6"
-                dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-              />
             </header>
             
             <div 
-              className="prose prose-lg max-w-none"
+              className="prose prose-lg max-w-none prose-img:my-8 prose-headings:mt-8 prose-headings:mb-4 prose-p:my-5 prose-li:my-2 text-lg post-content"
               dangerouslySetInnerHTML={{ __html: post.content.rendered }}
             />
           </article>
@@ -125,4 +149,4 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       </div>
     </div>
   );
-} 
+}

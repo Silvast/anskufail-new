@@ -1,86 +1,158 @@
 import Image from "next/image";
+import { Suspense } from "react";
+import "./styles.css";
+import { notFound } from "next/navigation";
 
-export default function AboutPage() {
+// Types
+type WordPressMedia = {
+  source_url: string;
+  alt_text?: string;
+  media_details?: {
+    sizes: {
+      full: {
+        source_url: string;
+      }
+    }
+  }
+};
+
+type WordPressPage = {
+  id: number;
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
+  _embedded?: {
+    "wp:featuredmedia"?: WordPressMedia[];
+  };
+};
+
+// Constants
+const API_URL = "https://public-api.wordpress.com/wp/v2/sites/anskufail.wordpress.com/pages/8";
+const FALLBACK_IMAGE = "/images/profile.jpg";
+const CACHE_REVALIDATION = 3600; // 1 hour
+
+// Data fetching
+async function getAboutPage(): Promise<WordPressPage> {
+  try {
+    const res = await fetch(
+      `${API_URL}?_embed`,
+      { next: { revalidate: CACHE_REVALIDATION } }
+    );
+    
+    if (!res.ok) {
+      throw new Error(`Failed to fetch about page: ${res.status}`);
+    }
+    
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching about page:", error);
+    notFound();
+  }
+}
+
+// Extract featured image helper
+function getFeaturedImage(page: WordPressPage): string {
+  return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url || 
+         page._embedded?.["wp:featuredmedia"]?.[0]?.source_url || 
+         FALLBACK_IMAGE;
+}
+
+// Loading component
+function AboutPageLoading() {
   return (
     <div className="py-12 sm:py-16">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold mb-12 text-center">About Me</h1>
-          
-          <div className="flex flex-col md:flex-row gap-12 items-center md:items-start mb-12">
-            <div className="w-64 h-64 rounded-lg overflow-hidden shadow-lg flex-shrink-0">
-              <Image
-                src="/images/profile.jpg"
-                alt="Profile picture"
-                width={256}
-                height={256}
-                className="w-full h-full object-cover"
-              />
+        <div className="animate-pulse space-y-8">
+          {/* Card with title and content */}
+          <div className="bg-white rounded-xl shadow-md p-8">
+            {/* Profile and Title Section */}
+            <div className="flex flex-col items-center mb-10">
+              <div className="w-40 h-40 bg-gray-200 rounded-full mb-6"></div>
+              <div className="h-10 bg-gray-200 rounded w-2/3 max-w-md"></div>
+              <div className="h-5 bg-gray-200 rounded w-1/3 mt-4"></div>
             </div>
             
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-4">Ansku</h2>
-              <p className="text-gray-600 mb-4">
-                I'm a passionate developer with expertise in modern web technologies. I love building intuitive, 
-                responsive, and accessible web applications that solve real problems.
-              </p>
-              <p className="text-gray-600 mb-4">
-                My journey in web development started several years ago, and I've been hooked ever since. 
-                I enjoy the constant learning and evolution that comes with working in this field.
-              </p>
-              <p className="text-gray-600">
-                When I'm not coding, you can find me reading tech blogs, contributing to open-source projects, 
-                or exploring the outdoors.
-              </p>
-            </div>
-          </div>
-          
-          <div className="border-t pt-12">
-            <h2 className="text-2xl font-bold mb-6">My Experience</h2>
-            
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Senior Developer</h3>
-                <p className="text-gray-500 mb-3">Tech Company • 2020 - Present</p>
-                <p className="text-gray-600">
-                  Leading development of web applications using React, Next.js, and Node.js. 
-                  Implementing best practices and mentoring junior developers.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Full Stack Developer</h3>
-                <p className="text-gray-500 mb-3">Digital Agency • 2017 - 2020</p>
-                <p className="text-gray-600">
-                  Developed client websites and applications. Worked with various technologies 
-                  including JavaScript, React, and WordPress.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Junior Developer</h3>
-                <p className="text-gray-500 mb-3">Tech Startup • 2015 - 2017</p>
-                <p className="text-gray-600">
-                  Started my career building user interfaces and implementing new features 
-                  for web applications.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t pt-12 mt-12">
-            <h2 className="text-2xl font-bold mb-6">Education</h2>
-            
-            <div>
-              <h3 className="text-xl font-semibold mb-2">Bachelor's in Computer Science</h3>
-              <p className="text-gray-500 mb-3">University of Technology • 2011 - 2015</p>
-              <p className="text-gray-600">
-                Focused on software development and web technologies. Graduated with honors.
-              </p>
+            {/* Content placeholders */}
+            <div className="space-y-4 max-w-3xl mx-auto">
+              <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+              <div className="h-4 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+              <div className="h-6 bg-gray-200 rounded w-1/4 mt-6"></div>
+              <div className="h-4 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-200 rounded"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-} 
+}
+
+// About page content component
+async function AboutPageContent() {
+  const page = await getAboutPage();
+  const featuredImageUrl = getFeaturedImage(page);
+  
+  return (
+    <>
+      {/* Main Content Section */}
+      <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+        {/* Profile and Title Section */}
+        <div className="flex flex-col items-center mb-10">
+          <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-lg border-4 border-white mb-6 ring-2 ring-gray-100">
+            <Image
+              src={featuredImageUrl}
+              alt="Profile picture"
+              width={500}
+              height={500}
+              className="w-full h-full object-cover"
+              priority
+            />
+          </div>
+          
+          <h1 className="text-3xl md:text-4xl font-bold text-center">
+            {page.title.rendered}
+          </h1>
+          
+          <div className="flex items-center gap-4 mt-4 text-gray-600">
+            <div className="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+              </svg>
+              <span>Web Developer</span>
+            </div>
+            <span>•</span>
+            <div className="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              </svg>
+              <span>Finland</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Main Content */}
+        <div 
+          className="prose prose-lg max-w-none about-content mx-auto"
+          dangerouslySetInnerHTML={{ __html: page.content.rendered }} 
+        />
+      </div>
+    </>
+  );
+}
+
+export default function AboutPage() {
+  return (
+    <div className="py-12 sm:py-16 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <Suspense fallback={<AboutPageLoading />}>
+          <AboutPageContent />
+        </Suspense>
+      </div>
+    </div>
+  );
+}

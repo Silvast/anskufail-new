@@ -1,0 +1,185 @@
+/* Hide figure element which contains an image we don't want to show */
+.about-content figure {
+  display: none !important;
+}
+
+/* Make figcaption invisible but maintain layout */
+.about-content figcaption {
+  display: none;
+}
+
+/* Style headings */
+.about-content h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  color: #1a202c;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 2rem;
+  position: relative;
+}
+
+.about-content h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3rem;
+  height: 3px;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  transform: translateY(-50%);
+}
+
+.about-content h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 1rem;
+  color: #2d3748;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.about-content h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 3px;
+  background: #3b82f6;
+  border-radius: 3px;
+}
+
+/* Style paragraphs */
+.about-content p {
+  margin-bottom: 1.25rem;
+  color: #4b5563;
+  line-height: 1.7;
+  font-size: 1.075rem;
+}
+
+/* Style lists */
+.about-content ul, 
+.about-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.75rem;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.about-content ul {
+  list-style-type: disc;
+}
+
+.about-content ol {
+  list-style-type: decimal;
+}
+
+.about-content li {
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.about-content li::marker {
+  color: #3b82f6;
+}
+
+/* Style links */
+.about-content a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-weight: 500;
+  padding: 0.125rem 0.25rem;
+  margin: 0 -0.25rem;
+  border-radius: 0.25rem;
+}
+
+.about-content a:hover {
+  color: #2563eb;
+  text-decoration: none;
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Style blockquotes */
+.about-content blockquote {
+  border-left: 4px solid #3b82f6;
+  background-color: #f3f4f6;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  font-style: italic;
+}
+
+/* Highlight important text */
+.about-content strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Code blocks */
+.about-content pre,
+.about-content code {
+  font-family: var(--font-mono);
+  background-color: #f1f5f9;
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875em;
+  color: #2563eb;
+}
+
+.about-content pre {
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+/* Tables */
+.about-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.about-content th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  color: #1f2937;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.about-content td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #e5e7eb;
+  color: #4b5563;
+}
+
+.about-content tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Special section with background */
+.about-content section {
+  background-color: #f8fafc;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid #e2e8f0;
+}
+
+/* Horizontal rule */
+.about-content hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #cbd5e1, transparent);
+  margin: 2.5rem 0;
+} 
