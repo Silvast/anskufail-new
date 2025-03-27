@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import ProjectsList from "@/components/ProjectsList";
+import projects from "@/data/projects";
 
 export default function Home() {
   return (
@@ -9,10 +11,10 @@ export default function Home() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 flex flex-col gap-6">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-              Hi, I'm Ansku
+             Moi, Olen Ansku
             </h1>
             <p className="text-lg text-gray-600 max-w-md">
-              Welcome to my personal website. I'm a passionate developer who loves building web applications and sharing knowledge through my blog.
+              Olen devaaja, tiiminvetäjä, scrummaster, PO ja mitä ikinä keksinkään olla.
             </p>
             <div className="flex gap-4 mt-4">
               <Link 
@@ -47,36 +49,12 @@ export default function Home() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">My Projects</h2>
+            <h2 className="text-3xl font-bold mb-4">Projekteja</h2>
             <p className="text-gray-600 max-w-md mx-auto">
-              Here are some of the projects I've worked on. More will be added soon.
+              Tässäpä on muutamia projekteja, joita vapaa-ajalla olen puuhastellut.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Project card placeholders - will be filled in later */}
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className="h-48 bg-gray-100 flex items-center justify-center">
-                  <p className="text-gray-400">Project Image {i}</p>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-bold text-xl mb-2">Project {i}</h3>
-                  <p className="text-gray-600 mb-4">
-                    This is a placeholder for project description. Details will be added later.
-                  </p>
-                  <a 
-                    href="#" 
-                    className="text-blue-600 hover:underline inline-flex items-center"
-                  >
-                    View Project
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ProjectsList projects={projects} />
         </div>
       </section>
 
@@ -91,9 +69,11 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-3xl mx-auto">
             {[
+              "Team Leadership","Scrum Master","Product Owner", "Project Management",
+              "Clojure", "Rust", "ClojureScript", "Re-frame", 
               "JavaScript", "TypeScript", "React", "Next.js", 
-              "Node.js", "Tailwind CSS", "HTML5", "CSS3",
-              "Git", "GitHub", "Vercel", "WordPress"
+              "AWS Lambda", "AWS DynamoDB","AWS SQS", "REST API",
+              "Cursor", "GitHub CoPilot"
             ].map((skill) => (
               <div key={skill} className="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
                 <p className="font-medium">{skill}</p>
