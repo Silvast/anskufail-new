@@ -49,7 +49,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:text-blue-800 inline-flex items-center font-medium"
               >
-                View Project
+                Lisää projektista
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
@@ -59,7 +59,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                 href={project.link.url} 
                 className="text-blue-600 hover:text-blue-800 inline-flex items-center font-medium"
               >
-                View Details
+                Lisää projektista
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
