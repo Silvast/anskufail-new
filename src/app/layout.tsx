@@ -27,7 +27,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <header className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-sm border-b">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-              <Link href="/" className="text-xl font-bold">
+              <Link href="/" className="text-xl font-bold hidden md:block">
                 Ansku
               </Link>
               <nav className="flex gap-6">
