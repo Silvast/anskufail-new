@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+'use client';
+
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
@@ -12,11 +13,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: "Ansku's Personal Website",
-  description: "Personal website and blog of Ansku",
-};
 
 export default function RootLayout({
   children,
@@ -36,16 +32,19 @@ export default function RootLayout({
               </Link>
               <nav className="flex gap-6">
                 <Link href="/" className="hover:text-blue-600 transition-colors">
-                  Home
+                  Koti
                 </Link>
                 <Link href="/about" className="hover:text-blue-600 transition-colors">
-                  Bio
+                  CV
                 </Link>
                 <Link href="/blog" className="hover:text-blue-600 transition-colors">
                   Blog
                 </Link>
+                <Link href="/english" className="hover:text-blue-600 transition-colors">
+                  In English
+                </Link>
                 <Link href="/contact" className="hover:text-blue-600 transition-colors">
-                  Contact
+                  Yhteys
                 </Link>
               </nav>
             </div>

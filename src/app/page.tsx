@@ -45,19 +45,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Projekteja</h2>
-            <p className="text-gray-600 max-w-md mx-auto">
-              Tässäpä on muutamia projekteja, joita vapaa-ajalla olen puuhastellut.
-            </p>
-          </div>
-          <ProjectsList projects={projects} />
-        </div>
-      </section>
-
       {/* Skills Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
@@ -83,6 +70,19 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+            {/* Projects Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Projekteja</h2>
+            <p className="text-gray-600 max-w-md mx-auto">
+              Tässäpä on muutamia projekteja, joita vapaa-ajalla olen puuhastellut.
+            </p>
+          </div>
+          <ProjectsList projects={projects} />
         </div>
       </section>
 
@@ -150,6 +150,9 @@ export default function Home() {
               </Link>
               <Link href="/blog" className="text-gray-600 hover:text-gray-900">
                 Blog
+              </Link>
+              <Link href="/english" className="text-gray-600 hover:text-gray-900">
+                In English
               </Link>
               <Link href="/contact" className="text-gray-600 hover:text-gray-900">
                 Contact

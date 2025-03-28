@@ -21,13 +21,12 @@ type WordPressPost = {
 
 // Constants
 const API_URL = "https://public-api.wordpress.com/wp/v2/sites/anskufail.wordpress.com/posts";
-const CACHE_REVALIDATION = 3600; // 1 hour
 
 // Function to fetch WordPress posts
 async function getPosts(): Promise<WordPressPost[]> {
   const res = await fetch(
     `${API_URL}?_embed`,
-    { next: { revalidate: CACHE_REVALIDATION } }
+    { cache: 'no-store' } // Disable caching to always fetch fresh data
   );
   
   if (!res.ok) {
