@@ -39,7 +39,7 @@ export default function RootLayout({
                   Home
                 </Link>
                 <Link href="/about" className="hover:text-blue-600 transition-colors">
-                  About
+                  Bio
                 </Link>
                 <Link href="/blog" className="hover:text-blue-600 transition-colors">
                   Blog

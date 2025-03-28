@@ -11,7 +11,7 @@ export default function Home() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 flex flex-col gap-6">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-             Moi, Olen Ansku
+             Moi, Olen Ansku Silvast
             </h1>
             <p className="text-lg text-gray-600 max-w-md">
               Olen devaaja, tiiminvetäjä, scrummaster, PO ja mitä ikinä keksinkään olla.
@@ -21,13 +21,13 @@ export default function Home() {
                 href="/contact" 
                 className="inline-flex h-10 items-center justify-center rounded-md bg-(--color-primary) px-8 text-sm font-medium text-(--color-primary-foreground) shadow transition-colors hover:bg-blue-700"
               >
-                Contact Me
+                Ole yhteydessä
               </Link>
               <Link 
                 href="/blog" 
                 className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50"
               >
-                Read My Blog
+                Blogiin
               </Link>
             </div>
           </div>
@@ -62,7 +62,10 @@ export default function Home() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">My Skills</h2>
+            <h2 className="text-3xl font-bold mb-4">Taidot/Skills</h2>
+            <p className="text-gray-600 max-w-md mx-auto">
+             Näillä näppäilen.
+            </p>
             <p className="text-gray-600 max-w-md mx-auto">
               These are the technologies and tools I'm proficient with.
             </p>
@@ -87,14 +90,14 @@ export default function Home() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
+            <h2 className="text-3xl font-bold mb-4">Yhteystiedot/Contact</h2>
             <p className="text-gray-600 max-w-md mx-auto">
-              Feel free to reach out to me on social media or send me an email.
+              Löydät minut näistä kanavista:
             </p>
           </div>
           <div className="flex justify-center gap-8">
             <a 
-              href="https://github.com/" 
+              href="https://github.com/Silvast" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
@@ -104,7 +107,7 @@ export default function Home() {
               </svg>
             </a>
             <a 
-              href="https://linkedin.com/" 
+              href="https://www.linkedin.com/in/silvast/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
@@ -114,12 +117,18 @@ export default function Home() {
               </svg>
             </a>
             <a 
-              href="mailto:email@example.com"
+              href="https://bsky.app/profile/anskusilvast.bsky.social"
+              target="_blank" 
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
             >
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
+              <Image 
+                src="/images/bluesky-1.svg"
+                alt="BlueSky"
+                width={24} 
+                height={24}
+                className="w-6 h-6"
+              />
             </a>
           </div>
         </div>
@@ -137,7 +146,7 @@ export default function Home() {
                 Home
               </Link>
               <Link href="/about" className="text-gray-600 hover:text-gray-900">
-                About
+                Bio
               </Link>
               <Link href="/blog" className="text-gray-600 hover:text-gray-900">
                 Blog
