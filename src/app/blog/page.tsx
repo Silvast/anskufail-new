@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 // Define the WordPress post interface
 type WordPressPost = {
@@ -57,11 +56,6 @@ function decodeHtml(html: string): string {
     .replace(/&ndash;/g, '–')
     .replace(/&mdash;/g, '—')
     .replace(/&nbsp;/g, ' ');
-}
-
-// Remove HTML tags from rendered content
-function stripHtml(html: string): string {
-  return html.replace(/<\/?[^>]+(>|$)/g, "");
 }
 
 export default async function BlogPage() {
