@@ -25,9 +25,9 @@ type WordPressPost = {
 
 // Types for the Next.js page props
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 // Constants
@@ -52,7 +52,7 @@ async function getAllPosts(): Promise<WordPressPost[]> {
 async function getPostBySlug(slug: string): Promise<WordPressPost | null> {
   const res = await fetch(
     `${API_BASE_URL}/posts?slug=${slug}&_embed`,
-    { next: { revalidate: CACHE_REVALIDATION } }
+    { cache: 'no-store' } // Disable caching to always fetch fresh data
   );
   
   if (!res.ok) {
@@ -96,8 +96,8 @@ export async function generateStaticParams() {
 
 export default async function BlogPostPage({ params }: PageProps) {
   // Await the params object before accessing its properties
-  const paramsData = await params;
-  const post = await getPostBySlug(paramsData.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
   
   if (!post) {
     notFound();
