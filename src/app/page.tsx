@@ -54,7 +54,7 @@ export default function Home() {
              Näillä näppäilen.
             </p>
             <p className="text-gray-600 max-w-md mx-auto">
-              These are the technologies and tools I'm proficient with.
+              These are the technologies and tools I am proficient with.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-3xl mx-auto">
