@@ -1,4 +1,4 @@
-// import Image from "next/image";
+import Image from "next/image";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
@@ -30,7 +30,7 @@ type WordPressPage = {
 
 // Constants
 const API_URL = "https://public-api.wordpress.com/wp/v2/sites/anskufail.wordpress.com/pages/198";
-// const FALLBACK_IMAGE = "/images/profile.jpg";
+const FALLBACK_IMAGE = "/images/profile.jpg";
 const CACHE_REVALIDATION = 3600; // 1 hour
 
 // Data fetching
@@ -53,11 +53,11 @@ async function getEnglishPage(): Promise<WordPressPage> {
 }
 
 // Extract featured image helper
-// function getFeaturedImage(page: WordPressPage): string {
-//   return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url ||
-//     page._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-//     FALLBACK_IMAGE;
-// }
+function getFeaturedImage(page: WordPressPage): string {
+  return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url ||
+    page._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    FALLBACK_IMAGE;
+}
 
 // Loading component
 function EnglishPageLoading() {
@@ -94,7 +94,7 @@ function EnglishPageLoading() {
 // English page content component
 async function EnglishPageContent() {
   const page = await getEnglishPage();
-  // const featuredImageUrl = getFeaturedImage(page);
+  const featuredImageUrl = getFeaturedImage(page);
 
   return (
     <>
@@ -102,7 +102,7 @@ async function EnglishPageContent() {
       <div className="bg-white rounded-xl shadow-md p-8 mb-12">
         {/* Profile and Title Section */}
         <div className="flex flex-col items-center mb-10">
-          {/* <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-lg border-4 border-white mb-6 ring-2 ring-gray-100">
+          <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-lg border-4 border-white mb-6 ring-2 ring-gray-100">
             <Image
               src={featuredImageUrl}
               alt="Profile picture"
@@ -111,7 +111,7 @@ async function EnglishPageContent() {
               className="w-full h-full object-cover"
               priority
             />
-          </div> */}
+          </div>
 
           <h1 className="text-3xl md:text-4xl font-bold text-center">
             About Anne-Mari Silvast
