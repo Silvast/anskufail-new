@@ -40,11 +40,11 @@ async function getEnglishPage(): Promise<WordPressPage> {
       `${API_URL}?_embed`,
       { next: { revalidate: CACHE_REVALIDATION } }
     );
-    
+
     if (!res.ok) {
       throw new Error(`Failed to fetch English page: ${res.status}`);
     }
-    
+
     return res.json();
   } catch (error) {
     console.error("Error fetching English page:", error);
@@ -54,9 +54,9 @@ async function getEnglishPage(): Promise<WordPressPage> {
 
 // Extract featured image helper
 function getFeaturedImage(page: WordPressPage): string {
-  return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url || 
-         page._embedded?.["wp:featuredmedia"]?.[0]?.source_url || 
-         FALLBACK_IMAGE;
+  return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url ||
+    page._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    FALLBACK_IMAGE;
 }
 
 // Loading component
@@ -73,7 +73,7 @@ function EnglishPageLoading() {
               <div className="h-10 bg-gray-200 rounded w-2/3 max-w-md"></div>
               <div className="h-5 bg-gray-200 rounded w-1/3 mt-4"></div>
             </div>
-            
+
             {/* Content placeholders */}
             <div className="space-y-4 max-w-3xl mx-auto">
               <div className="h-6 bg-gray-200 rounded w-1/3"></div>
@@ -95,14 +95,14 @@ function EnglishPageLoading() {
 async function EnglishPageContent() {
   const page = await getEnglishPage();
   const featuredImageUrl = getFeaturedImage(page);
-  
+
   return (
     <>
       {/* Main Content Section */}
       <div className="bg-white rounded-xl shadow-md p-8 mb-12">
         {/* Profile and Title Section */}
         <div className="flex flex-col items-center mb-10">
-          <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-lg border-4 border-white mb-6 ring-2 ring-gray-100">
+          {/* <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-lg border-4 border-white mb-6 ring-2 ring-gray-100">
             <Image
               src={featuredImageUrl}
               alt="Profile picture"
@@ -111,12 +111,12 @@ async function EnglishPageContent() {
               className="w-full h-full object-cover"
               priority
             />
-          </div>
-          
+          </div> */}
+
           <h1 className="text-3xl md:text-4xl font-bold text-center">
             About Anne-Mari Silvast
           </h1>
-          
+
           <div className="flex items-center gap-4 mt-4 text-gray-600">
             <div className="flex items-center gap-1">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
@@ -133,11 +133,11 @@ async function EnglishPageContent() {
             </div>
           </div>
         </div>
-        
+
         {/* Main Content */}
-        <div 
+        <div
           className="prose prose-lg max-w-none about-content mx-auto"
-          dangerouslySetInnerHTML={{ __html: page.content.rendered }} 
+          dangerouslySetInnerHTML={{ __html: page.content.rendered }}
         />
       </div>
     </>
