@@ -41,11 +41,11 @@ async function getAboutPage(): Promise<WordPressPage> {
       `${API_URL}?_embed`,
       { next: { revalidate: CACHE_REVALIDATION } }
     );
-    
+
     if (!res.ok) {
       throw new Error(`Failed to fetch about page: ${res.status}`);
     }
-    
+
     return res.json();
   } catch (error) {
     console.error("Error fetching about page:", error);
@@ -55,9 +55,9 @@ async function getAboutPage(): Promise<WordPressPage> {
 
 // Extract featured image helper
 function getFeaturedImage(page: WordPressPage): string {
-  return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url || 
-         page._embedded?.["wp:featuredmedia"]?.[0]?.source_url || 
-         FALLBACK_IMAGE;
+  return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url ||
+    page._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    FALLBACK_IMAGE;
 }
 
 // Loading component
@@ -74,7 +74,7 @@ function BiographyPageLoading() {
               <div className="h-10 bg-gray-200 rounded w-2/3 max-w-md"></div>
               <div className="h-5 bg-gray-200 rounded w-1/3 mt-4"></div>
             </div>
-            
+
             {/* Content placeholders */}
             <div className="space-y-4 max-w-3xl mx-auto">
               <div className="h-6 bg-gray-200 rounded w-1/3"></div>
@@ -96,7 +96,7 @@ function BiographyPageLoading() {
 async function BiographyPageContent() {
   const page = await getAboutPage();
   const featuredImageUrl = getFeaturedImage(page);
-  
+
   return (
     <>
       {/* Main Content Section */}
@@ -113,11 +113,11 @@ async function BiographyPageContent() {
               priority
             />
           </div>
-          
+
           <h1 className="text-3xl md:text-4xl font-bold text-center">
             Bio
           </h1>
-          
+
           <div className="flex items-center gap-4 mt-4 text-gray-600">
             <div className="flex items-center gap-1">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
@@ -134,11 +134,11 @@ async function BiographyPageContent() {
             </div>
           </div>
         </div>
-        
+
         {/* Main Content */}
-        <div 
-          className="prose prose-lg max-w-none about-content mx-auto"
-          dangerouslySetInnerHTML={{ __html: page.content.rendered }} 
+        <div
+          className="prose prose-lg max-w-none about-content mx-auto text-lg"
+          dangerouslySetInnerHTML={{ __html: page.content.rendered }}
         />
       </div>
     </>

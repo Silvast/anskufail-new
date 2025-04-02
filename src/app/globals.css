@@ -9,20 +9,22 @@
   h1 {
     font-size: var(--text-2xl);
   }
+
   h2 {
     font-size: var(--text-xl);
   }
 }
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+
   /* Primary colors */
   --color-primary: #3b82f6;
   --color-primary-foreground: #ffffff;
-  
+
   /* Custom colors for sections */
   --color-hero-background: #f8fafc;
   --color-footer-background: #f1f5f9;
@@ -56,10 +58,64 @@ body {
 }
 
 /* Ensure proper spacing between content blocks */
-.prose > * + * {
+.prose>*+* {
   margin-top: 1rem;
 }
 
 .more-link {
   display: none;
+}
+
+/* General styles for unordered lists */
+ul {
+  list-style-type: disc;
+  /* Adds bullets to unordered lists */
+  margin-left: 1.5rem;
+  /* Adds left margin for indentation */
+  padding-left: 1rem;
+  /* Adds padding for better spacing */
+}
+
+/* Specific styles for the wp-block-list class */
+.wp-block-list {
+  list-style-type: disc;
+  /* Ensures bullets are displayed */
+  margin-left: 1.5rem;
+  /* Indentation for the list */
+  padding-left: 1rem;
+  /* Padding for spacing */
+}
+
+.wp-block-list li {
+  margin-bottom: 0.5rem;
+  /* Adds spacing between list items */
+  line-height: 1.6;
+  /* Improves readability */
+}
+
+/* Styles for h2.wp-block-heading */
+h2.wp-block-heading {
+  font-size: 1.875rem;
+  /* Matches Tailwind's text-3xl */
+  font-weight: 700;
+  /* Matches Tailwind's font-bold */
+  margin-bottom: 1rem;
+  /* Matches Tailwind's mb-4 */
+  line-height: 2.25rem;
+  /* Matches Tailwind's line-height for text-3xl */
+}
+
+hr {
+  border: none;
+  /* Removes default border from wp html */
+}
+
+a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-weight: 500;
+  padding: 0.125rem 0.25rem;
+  margin: 0 -0.25rem;
+  border-radius: 0.25rem;
 }

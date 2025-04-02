@@ -136,7 +136,7 @@ async function EnglishPageContent() {
 
         {/* Main Content */}
         <div
-          className="prose prose-lg max-w-none about-content mx-auto"
+          className="prose prose-lg max-w-none about-content mx-auto text-lg"
           dangerouslySetInnerHTML={{ __html: page.content.rendered }}
         />
       </div>
