@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
@@ -30,7 +30,7 @@ type WordPressPage = {
 
 // Constants
 const API_URL = "https://public-api.wordpress.com/wp/v2/sites/anskufail.wordpress.com/pages/198";
-const FALLBACK_IMAGE = "/images/profile.jpg";
+// const FALLBACK_IMAGE = "/images/profile.jpg";
 const CACHE_REVALIDATION = 3600; // 1 hour
 
 // Data fetching
@@ -53,11 +53,11 @@ async function getEnglishPage(): Promise<WordPressPage> {
 }
 
 // Extract featured image helper
-function getFeaturedImage(page: WordPressPage): string {
-  return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url ||
-    page._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-    FALLBACK_IMAGE;
-}
+// function getFeaturedImage(page: WordPressPage): string {
+//   return page._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full?.source_url ||
+//     page._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+//     FALLBACK_IMAGE;
+// }
 
 // Loading component
 function EnglishPageLoading() {
@@ -94,7 +94,7 @@ function EnglishPageLoading() {
 // English page content component
 async function EnglishPageContent() {
   const page = await getEnglishPage();
-  const featuredImageUrl = getFeaturedImage(page);
+  // const featuredImageUrl = getFeaturedImage(page);
 
   return (
     <>
