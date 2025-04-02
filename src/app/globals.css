@@ -110,7 +110,7 @@ hr {
   /* Removes default border from wp html */
 }
 
-a {
+.prose a {
   color: #3b82f6;
   text-decoration: none;
   transition: all 0.2s;
