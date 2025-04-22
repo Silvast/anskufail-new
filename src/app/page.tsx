@@ -14,7 +14,7 @@ export default function Home() {
               Moi, Olen Ansku Silvast
             </h1>
             <p className="text-lg text-gray-600 max-w-md">
-            Olen monipuolinen IT-alan ammattilainen: devaaja, tiiminvetäjä, scrummaster, PO ja paljon muuta. Osaamiseni loistaa erityisesti teknologian ja liiketoiminnan rajapinnassa, missä luon suurinta arvoa tiimeille.
+            Olen monipuolinen IT-alan ammattilainen: devaaja, tiiminvetäjä, scrummaster, PO ja paljon muuta. Osaamiseni pääsee parhaiten esille teknologian ja liiketoiminnan rajapinnassa, missä luon suurinta arvoa tiimeille.
             </p>
             <div className="flex gap-4 mt-4">
               <Link
