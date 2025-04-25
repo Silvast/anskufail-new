@@ -21,7 +21,7 @@ export default function Home() {
                 href="/contact"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-(--color-primary) px-8 text-sm font-medium text-(--color-primary-foreground) shadow transition-colors hover:bg-blue-700"
               >
-                Ole yhteydessä/Contact
+                Ole yhteydessä/Contact me
               </Link>
               <Link
                 href="/blog"
